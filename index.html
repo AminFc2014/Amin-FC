@@ -3,49 +3,1201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amin FC</title>
+
+  <title>Amin FC | فوتبال، بازی‌ها و ویدیوها</title>
+
+  <meta name="description" content="Amin FC؛ دنیای فوتبال، بازی‌ها، ویدیوها و اخبار فوتبالی">
+
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: white;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #07111f;
+      color: #fff;
+      line-height: 1.8;
+    }
+
+    button,
+    a {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       WELCOME SCREEN
+    ========================== */
+
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #020812;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #welcomeVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #020812;
+    }
+
+    .welcomeOverlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,.85),
+        rgba(0,0,0,.15)
+      );
+      pointer-events: none;
+    }
+
+    .welcomeBottom {
+      position: absolute;
+      bottom: 35px;
+      right: 50%;
+      transform: translateX(50%);
+      width: min(92%, 700px);
       text-align: center;
+      z-index: 2;
     }
-    header {
-      background: #087f5b;
-      padding: 25px;
+
+    .welcomeTitle {
+      font-size: clamp(28px, 6vw, 55px);
+      font-weight: 900;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 20px #000;
     }
-    h1 { margin: 0; }
-    .card {
-      margin: 30px auto;
-      padding: 25px;
-      max-width: 500px;
-      background: #172033;
-      border-radius: 20px;
+
+    .welcomeText {
+      color: #ddd;
+      font-size: 15px;
+      margin-bottom: 15px;
     }
-    button {
-      padding: 12px 25px;
+
+    #continueBtn {
+      display: none;
       border: 0;
+      border-radius: 50px;
+      padding: 13px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #18d26e;
+      color: #04110a;
+      box-shadow: 0 8px 30px rgba(24,210,110,.3);
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3,10,20,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      min-height: 72px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      color: #19d873;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      color: #d8e1ec;
       border-radius: 10px;
-      background: #19a974;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    nav a:hover {
+      background: rgba(25,216,115,.12);
+      color: #19d873;
+    }
+
+    /* =========================
+       GENERAL
+    ========================== */
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    section {
+      padding: 65px 0;
+    }
+
+    .sectionTitle {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .sectionTitle h2 {
+      font-size: clamp(25px, 4vw, 38px);
+      margin-bottom: 7px;
+    }
+
+    .sectionTitle p {
+      color: #9caabd;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0d1b2e, #091423);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.18);
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .muted {
+      color: #9caabd;
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      background: #19d873;
+      color: #031109;
+      font-weight: 800;
+      border: 0;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn.dark {
+      background: #15263c;
       color: white;
-      font-size: 18px;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(25,216,115,.16), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(48,126,255,.14), transparent 35%);
+    }
+
+    .heroContent {
+      max-width: 760px;
+    }
+
+    .heroBadge {
+      display: inline-block;
+      background: rgba(25,216,115,.1);
+      color: #19d873;
+      padding: 6px 13px;
+      border-radius: 50px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 8vw, 78px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: #19d873;
+    }
+
+    .hero p {
+      color: #b4c0cf;
+      max-width: 650px;
+      margin-bottom: 25px;
+    }
+
+    .heroButtons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================
+       MATCH
+    ========================== */
+
+    .matchCard {
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      margin: 20px 0;
+    }
+
+    .team {
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .vs {
+      color: #19d873;
+      font-weight: 900;
+    }
+
+    .matchInfo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .matchInfo div {
+      background: #09111e;
+      border-radius: 12px;
+      padding: 9px;
+    }
+
+    .matchInfo small {
+      color: #8897aa;
+      display: block;
+    }
+
+    /* =========================
+       VIDEO
+    ========================== */
+
+    video {
+      width: 100%;
+      border-radius: 16px;
+      background: #000;
+    }
+
+    .videoCard {
+      padding: 12px;
+    }
+
+    /* =========================
+       YOUTUBE
+    ========================== */
+
+    .youtubeCard {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .youtubeAvatar {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #18263a;
+      border: 3px solid #19d873;
+    }
+
+    .youtubeInfo {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    /* =========================
+       NEWS
+    ========================== */
+
+    .newsDate {
+      color: #19d873;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    /* =========================
+       POLL
+    ========================== */
+
+    .pollOption {
+      width: 100%;
+      text-align: right;
+      background: #101f32;
+      color: white;
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .pollOption:hover {
+      border-color: #19d873;
+    }
+
+    #pollResult {
+      margin-top: 15px;
+      color: #19d873;
+      font-weight: bold;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: #8290a3;
+      border-top: 1px solid rgba(255,255,255,.07);
+      background: #040b14;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+      }
+
+      nav a {
+        white-space: nowrap;
+      }
+
+      section {
+        padding: 45px 0;
+      }
+
+      .hero {
+        min-height: 470px;
+      }
+
+      .teams {
+        gap: 12px;
+      }
+
+      .team {
+        font-size: 17px;
+      }
+
+      .matchInfo {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>⚽🔥 Amin FC</h1>
-  <p>سایت فوتبالی شخصی من</p>
-</header>
+<!-- =========================
+     WELCOME VIDEO
+========================== -->
 
-<div class="card">
-  <h2>🏆 خوش آمدید</h2>
-  <p>به سایت Amin FC خوش آمدید!</p>
-  <button>شروع</button>
+<div id="welcomeScreen">
+
+  <video id="welcomeVideo" playsinline>
+    <source src="welcome.mp4" type="video/mp4">
+    مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+  </video>
+
+  <div class="welcomeOverlay"></div>
+
+  <div class="welcomeBottom">
+    <div class="welcomeTitle">Amin FC ⚽</div>
+
+    <div class="welcomeText">
+      به سایت رسمی Amin FC خوش آمدید
+    </div>
+
+    <button id="continueBtn">
+      ورود به Amin FC →
+    </button>
+  </div>
+
 </div>
 
-</body>
-</html>
+
+<!-- =========================
+     MAIN WEBSITE
+========================== -->
+
+<div id="mainSite" style="display:none;">
+
+<header>
+  <div class="nav">
+
+    <div class="logo">Amin FC ⚽</div>
+
+    <nav>
+      <a href="#home">خانه</a>
+      <a href="#matches">بازی‌ها</a>
+      <a href="#videos">ویدیوها</a>
+      <a href="#news">اخبار</a>
+      <a href="#gaming">گیمینگ</a>
+      <a href="#poll">رأی‌گیری</a>
+      <a href="#about">درباره</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="container">
+
+    <div class="heroContent">
+
+      <div class="heroBadge">
+        🔥 سایت رسمی Amin FC
+      </div>
+
+      <h1>
+        دنیای <span>Amin FC</span>
+      </h1>
+
+      <p>
+        جدیدترین ویدیوها، بازی‌ها، ترکیب تیم‌ها،
+        اخبار فوتبالی و محتوای اختصاصی Amin FC
+        را اینجا دنبال کنید.
+      </p>
+
+      <div class="heroButtons">
+
+        <a class="btn" href="#matches">
+          ⚽ بازی‌های Amin FC
+        </a>
+
+        <a class="btn dark"
+           href="https://youtube.com/@aminfc1"
+           target="_blank">
+          ▶️ کانال یوتیوب
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- YOUTUBE -->
+
+<section>
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>کانال یوتیوب Amin FC</h2>
+      <p>ویدیوهای جدید را از دست ندهید</p>
+    </div>
+
+    <div class="card youtubeCard">
+
+      <img
+        class="youtubeAvatar"
+        src="youtube-profile.png"
+        alt="Amin FC">
+
+      <div class="youtubeInfo">
+
+        <h3>Amin FC</h3>
+
+        <p class="muted">
+          برای دیدن ویدیوهای فوتبالی و محتوای جدید
+          وارد کانال یوتیوب شوید.
+        </p>
+
+      </div>
+
+      <a
+        class="btn"
+        href="https://youtube.com/@aminfc1"
+        target="_blank">
+        رفتن به کانال ▶️
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- MATCHES -->
+
+<section id="matches">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>⚽ بازی‌های Amin FC</h2>
+      <p>بازی‌هایی که توسط Amin FC ساخته و منتشر می‌شوند</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card matchCard">
+
+        <h3>بازی رفت</h3>
+
+        <div class="teams">
+          <div class="team">منچسترسیتی</div>
+          <div class="vs">VS</div>
+          <div class="team">دورتموند</div>
+        </div>
+
+        <div class="matchInfo">
+
+          <div>
+            <small>نوع بازی</small>
+            بازی رفت
+          </div>
+
+          <div>
+            <small>وضعیت</small>
+            منتشر شده
+          </div>
+
+          <div>
+            <small>ساخته شده توسط</small>
+            Amin FC
+          </div>
+
+        </div>
+
+        <a class="btn" href="#cityDortmund">
+          دیدن بازی 🎬
+        </a>
+
+      </div>
+
+
+      <div class="card matchCard">
+
+        <h3>بازی بعدی</h3>
+
+        <div class="teams">
+          <div class="team">؟</div>
+          <div class="vs">VS</div>
+          <div class="team">؟</div>
+        </div>
+
+        <p class="muted">
+          به‌زودی بازی جدید Amin FC اضافه می‌شود.
+        </p>
+
+      </div>
+
+
+      <div class="card matchCard">
+
+        <h3>آرشیو بازی‌ها</h3>
+
+        <p class="muted">
+          تمام بازی‌هایی که خودت در Amin FC می‌سازی
+          به مرور اینجا قرار می‌گیرند.
+        </p>
+
+        <br>
+
+        <a class="btn dark" href="#gaming">
+          مشاهده آرشیو 🎮
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CITY DORTMUND VIDEO -->
+
+<section id="cityDortmund">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>🎬 منچسترسیتی × دورتموند</h2>
+      <p>بازی ساخته‌شده توسط Amin FC</p>
+    </div>
+
+    <div class="card videoCard">
+
+      <video controls preload="metadata">
+
+        <source
+          src="city-dortmund.mp4"
+          type="video/mp4">
+
+        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+
+      </video>
+
+      <br><br>
+
+      <h3>بازی رفت</h3>
+
+      <p class="muted">
+        این بازی توسط Amin FC ساخته و ضبط شده است.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- LINEUPS -->
+
+<section>
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>📋 ترکیب تیم‌ها</h2>
+      <p>ترکیب‌های بازی را اینجا قرار می‌دهیم</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>🔵 منچسترسیتی</h3>
+
+        <p class="muted">
+          ترکیب در زمان اعلام شدن اضافه می‌شود.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>🟡 دورتموند</h3>
+
+        <p class="muted">
+          ترکیب در زمان اعلام شدن اضافه می‌شود.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- VIDEOS -->
+
+<section id="videos">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>📺 آخرین ویدیوها</h2>
+      <p>ویدیوهای جدید Amin FC</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>ویدیوی جدید Amin FC</h3>
+
+        <p class="muted">
+          ویدیوهای جدید کانال در این قسمت معرفی می‌شوند.
+        </p>
+
+        <br>
+
+        <a
+          class="btn"
+          href="https://youtube.com/@aminfc1"
+          target="_blank">
+          مشاهده در یوتیوب ▶️
+        </a>
+
+      </div>
+
+      <div class="card">
+
+        <h3>ویدیوی بعدی</h3>
+
+        <p class="muted">
+          به‌زودی...
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>ویدیوهای بیشتر</h3>
+
+        <p class="muted">
+          برای مشاهده همه ویدیوها وارد کانال شوید.
+        </p>
+
+        <br>
+
+        <a
+          class="btn dark"
+          href="https://youtube.com/@aminfc1"
+          target="_blank">
+          کانال Amin FC
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<section id="news">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>📰 اخبار Amin FC</h2>
+      <p>خبرهای مهمی که توسط Amin FC منتشر می‌شوند</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="newsDate">
+          Amin FC
+        </div>
+
+        <h3>خبر جدید</h3>
+
+        <p class="muted">
+          اولین خبر Amin FC به‌زودی در این قسمت قرار می‌گیرد.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="newsDate">
+          Amin FC
+        </div>
+
+        <h3>ویدیوی جدید در راه است</h3>
+
+        <p class="muted">
+          منتظر محتوای جدید Amin FC باشید.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="newsDate">
+          Amin FC
+        </div>
+
+        <h3>خبر فوری</h3>
+
+        <p class="muted">
+          این قسمت برای خبرهای مهم استفاده خواهد شد.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PLAYER OF WEEK -->
+
+<section>
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>⭐ بازیکن هفته</h2>
+      <p>انتخاب ویژه Amin FC</p>
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+      <h3>بازیکن هفته به‌زودی معرفی می‌شود</h3>
+
+      <p class="muted">
+        هر هفته می‌توانیم یک بازیکن را انتخاب و معرفی کنیم.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MOMENT OF WEEK -->
+
+<section>
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>🔥 لحظه هفته</h2>
+      <p>بهترین لحظه از بازی‌ها و ویدیوهای Amin FC</p>
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+      <h3>لحظه هفته</h3>
+
+      <p class="muted">
+        بهترین لحظه این هفته اینجا قرار می‌گیرد.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- POLL -->
+
+<section id="poll">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>📊 رأی‌گیری Amin FC</h2>
+      <p>بهترین بازیکن بازی را انتخاب کنید</p>
+    </div>
+
+    <div class="card">
+
+      <h3>
+        به نظر شما بهترین بازیکن بازی چه کسی بود؟
+      </h3>
+
+      <button
+        class="pollOption"
+        onclick="vote('بازیکن اول')">
+        بازیکن اول
+      </button>
+
+      <button
+        class="pollOption"
+        onclick="vote('بازیکن دوم')">
+        بازیکن دوم
+      </button>
+
+      <button
+        class="pollOption"
+        onclick="vote('بازیکن سوم')">
+        بازیکن سوم
+      </button>
+
+      <div id="pollResult"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- GAMING -->
+
+<section id="gaming">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>🎮 گیمینگ Amin FC</h2>
+      <p>بازی‌ها و پروژه‌هایی که خودت می‌سازی</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>⚽ بازی‌های فوتبالی</h3>
+
+        <p class="muted">
+          بازی‌های ساخته‌شده توسط Amin FC در این قسمت
+          آرشیو می‌شوند.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>🎬 پروژه‌های جدید</h3>
+
+        <p class="muted">
+          پروژه‌های جدید گیمینگ اینجا قرار می‌گیرند.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>🏆 آرشیو Amin FC</h3>
+
+        <p class="muted">
+          با بیشتر شدن بازی‌ها، این بخش تبدیل به
+          آرشیو کامل بازی‌های Amin FC می‌شود.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+  <div class="container">
+
+    <div class="sectionTitle">
+      <h2>👤 درباره Amin FC</h2>
+      <p>داستان Amin FC</p>
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+      <h3>Amin FC چیست؟</h3>
+
+      <br>
+
+      <p class="muted">
+        Amin FC یک پروژه فوتبالی و گیمینگ است که
+        ویدیوها، بازی‌ها، اخبار و محتوای فوتبالی را
+        در یکجا جمع می‌کند.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <h3>Amin FC ⚽</h3>
+
+    <p>
+      فوتبال، گیمینگ و محتوای اختصاصی
+    </p>
+
+    <br>
+
+    <a
+      class="btn"
+      href="https://youtube.com/@aminfc1"
+      target="_blank">
+      ▶️ کانال یوتیوب
+    </a>
+
+    <br><br>
+
+    <small>
+      © 2026 Amin FC
+    </small>
+
+  </div>
+
+</footer>
+
+</div>
+
+
+<script>
+
+  const welcomeScreen =
+    document.getElementById("welcomeScreen");
+
+  const welcomeVideo =
+    document.getElementById("welcomeVideo");
+
+  const continueBtn =
+    document.getElementById("continueBtn");
+
+  const mainSite =
+    document.getElementById("mainSite");
+
+
+  function enterSite() {
+
+    welcomeScreen.style.display = "none";
+    mainSite.style.display = "block";
+
+    localStorage.setItem(
+      "aminFcWelcomeSeen",
+      "true"
+    );
+
+    try {
+      welcomeVideo.pause();
+    } catch(e) {}
+
+    window.scrollTo(0, 0);
+  }
+
+
+  function startWelcome() {
+
+    welcomeVideo.currentTime = 0;
+
+    welcomeVideo.play().catch(() => {
+      continueBtn.style.display = "inline-flex";
+    });
+  }
+
+
+  /*
+    اگر کاربر قبلاً ویدیو را دیده باشد،
+    مستقیماً وارد سایت می‌شود.
+  */
+
+  if (
+    localStorage.getItem("aminFcWelcomeSeen")
+    === "true"
+  ) {
+
+    welcomeScreen.style.display = "none";
+    mainSite.style.display = "block";
+
+  } else {
+
+    startWelcome();
+
+  }
+
+
+  /*
+    دکمه فقط در ثانیه‌های پایانی ظاهر می‌شود.
+  */
+
+  welcomeVideo.addEventListener(
+    "timeupdate",
+    function() {
+
+      if (
+        welcomeVideo.duration &&
+        welcomeVideo.currentTime >=
+        welcomeVideo.duration - 5
+      ) {
+
+        continueBtn.style.display =
+          "inline-flex";
+
+      }
+
+    }
+  );
+
+
+  welcomeVideo.a
